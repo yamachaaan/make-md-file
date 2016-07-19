@@ -2,7 +2,7 @@
 
 read YYYY
 read MM
-cd /Users/ymzkryo/blog.yamachaaan.net/blog/data/$YYYY/$MM/
+cd ~/blog.yamachaaan.net/blog/data/$YYYY/$MM/
 read DATE
 touch "$DATE-diary.md"
 echo "---" > "$DATE-diary.md"
@@ -14,5 +14,5 @@ read TAG
 echo "tags: ['$TAG']" >> "$DATE-diary.md"
 echo "pagetype: posts" >> "$DATE-diary.md"
 echo "---" >> "$DATE-diary.md"
-vim /Users/ymzkryo/blog.yamachaaan.net/blog/data/$YYYY/$MM/$DATE-diary.md
+vim ~i/blog.yamachaaan.net/blog/data/$YYYY/$MM/$DATE-diary.md
 
