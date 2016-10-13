@@ -14,7 +14,7 @@ read TAG
 echo "tags: ['$TAG']" >> "$DATE-diary.md"
 echo "pagetype: posts" >> "$DATE-diary.md"
 echo "---" >> "$DATE-diary.md"
-echo "## 日記¥n">> "$DATE-diary.md"
+echo "## 日記">> "$DATE-diary.md"
 echo 
 echo "## 作業メモ">> "$DATE-diary.md"
 echo
@@ -28,4 +28,3 @@ echo "- ">> "$DATE-diary.md"
 echo "### T">> "$DATE-diary.md"
 echo "- ">> "$DATE-diary.md"
 vim ~/blog.yamachaaan.net/blog/data/$YYYY/$MM/$DATE-diary.md
-
