@@ -1,24 +1,26 @@
 #!/bin/sh
 
+echo "何年?"
 read YYYY
-read wXX
+name=`date +%Y-w%V`
 cd ~/blog.yamachaaan.net/blog/draft/$YYYY/
-touch "$YYYY-$wXX.md"
-echo "---" > "$YYYY-$wXX.md"
-echo "layout: post" >> "$YYYY-$wXX.md"
-echo "pubdata: $DATE-23:59:59+09:00" >> "$YYYY-$wXX.md"
-echo "title: '$YYYY-$wXX 今週のふりかえり'" >> "$YYYY-$wXX.md"
-echo "tags: ['weekly report']" >> "$YYYY-$wXX.md"
-echo "pagetype: posts" >> "$YYYY-$wXX.md"
-echo "---" >> "$YYYY-$wXX.md"
-echo "$YYYY-$wXXのふりかえり。">> "$YYYY-$wXX.md"
-echo "## 今週のPost">> "$YYYY-$wXX.md"
-echo "## 今週の振り返り">> "$YYYY-$wXX.md"
-echo "## 今週のポモドーロ">> "$YYYY-$wXX.md"
-echo "## KPT ">> "$YYYY-$wXX.md"
-echo "### K">> "$YYYY-$wXX.md"
-echo "### P">> "$YYYY-$wXX.md"
-echo "### T">> "$YYYY-$wXX.md"
-echo "## 今週の計画">> "$YYYY-$wXX.md"
-vim ~/blog.yamachaaan.net/blog/draft/$YYYY/$YYYY-$wXX.md
+touch "$name.md"
+echo "---" > "$name.md"
+echo "layout: post" >> "$name.md"
+date=`date +%Y-%m-%d`
+echo "pubdata: $date-23:59:59+09:00" >> "$name.md"
+echo "title: '$name 今週のふりかえり'" >> "$name.md"
+echo "tags: ['weekly report']" >> "$name.md"
+echo "pagetype: posts" >> "$name.md"
+echo "---" >> "$name.md"
+echo "$nameのふりかえり。">> "$name.md"
+echo "## 今週のPost">> "$name.md"
+echo "## 今週の振り返り">> "$name.md"
+echo "## 今週のポモドーロ">> "$name.md"
+echo "## KPT ">> "$name.md"
+echo "### K">> "$name.md"
+echo "### P">> "$name.md"
+echo "### T">> "$name.md"
+echo "## 今週の計画">> "$name.md"
+vim ~/blog.yamachaaan.net/blog/draft/$YYYY/$name.md
 
