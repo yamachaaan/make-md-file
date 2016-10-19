@@ -2,6 +2,13 @@
 
 echo "何年?"
 read YYYY
+if [ ! -d ~/blog.yamachaaan.net/blog/draft/$YYYY/ ]
+then
+    mkdir ~/blog.yamachaaan.net/blog/draft/$YYYY/
+else
+cd ~/blog.yamachaaan.net/blog/draft/$YYYY/
+fi
+cd ~/blog.yamachaaan.net/blog/draft/$YYYY/
 name=`date +%Y-w%V`
 cd ~/blog.yamachaaan.net/blog/draft/$YYYY/
 touch "$name.md"
