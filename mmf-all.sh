@@ -29,6 +29,3 @@ else
     source ~/mmf/mmf-y.sh
 fi
 
-# task
-# - [ ] 新規ディレクトリの作成
-
