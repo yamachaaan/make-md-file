@@ -22,6 +22,6 @@ The contents of the review is
 [yamachaan/productivity-commission/review](https://github.com/yamachaaan/productivity-commission/tree/master/review)  
 To comply with.  
 
-レビューの内容は--
+レビューの内容は  
 [yamachaan/productivity-commission/review](https://github.com/yamachaaan/productivity-commission/tree/master/review)  
 に準拠する。  
