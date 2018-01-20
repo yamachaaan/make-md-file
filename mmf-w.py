@@ -14,7 +14,6 @@ date = now.strftime("%Y-%m-%d")
 datepath = now.strftime("%Y/%m")
 filename = date + "-diary"
 mainPath = "/Users/yamachaaan/blog.yamachaaan.net/data/"
-
 def makeFile():
     if (os.path.isdir(mainPath + datepath)):
         pass
@@ -35,7 +34,7 @@ def createContents():
     f.write("tags: ['review']\n")
     f.write("pagetype: posts\n")
     f.write("---\n")
-    f.write(now.strftime("%Y") + "年-W") + list[1]
+    f.write(now.strftime("%Y") + "年-W" + str(list[1]))
     f.write("  \n")
     f.write("### 目標")
     f.write("  \n")
