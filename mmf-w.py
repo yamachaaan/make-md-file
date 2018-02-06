@@ -8,13 +8,14 @@ Modified: 2018-01-18
 
 import os
 from datetime import datetime,timedelta,date
+import linecache
 
 now = datetime.now()
 strDate = now.isoformat()
 datepath = now.strftime("%Y/%m")
 filename = now.strftime("%Y-%m-%d") + "-diary"
-#mainPath = "/Users/yamachaaan/blog.yamachaaan.net/data/"
-mainPath = "/users/yamachaaan/mmf/"
+mainPath = "/Users/yamachaaan/blog.yamachaaan.net/data/"
+#mainPath = "/users/yamachaaan/mmf/"
 dayList = [0 for Cnt in range(6)]
 postList = [0 for Cnt in range(6)]
 weekNo = date(now.year,now.month,now.day).isocalendar()
@@ -30,7 +31,12 @@ def setweekDay():
     for dayCnt in range(7):
         d = now-timedelta(dayCnt)
         dayList.insert(dayCnt,d.strftime("%Y-%m-%d"))
-        #print(dayList[dayCnt])
+
+def getPostTitle(tmp):
+    pathList = tmp.split("-")
+    targetFilePath = mainPath + pathList[0] + "/" + pathList[1] + "/" + tmp + "-diary.md"
+    PostTitle = linecache.getline(targetFilePath, int(4))
+    return PostTitle
 
 def createContents():
     f = open(filename + '.md','a')
@@ -52,7 +58,7 @@ def createContents():
         urlList = tmp.split("-")
         surl = "/" + urlList[0] + "/" + urlList[1] + "/" + urlList[2] + "/"
         seturl = "http://blog.yamachaaan.net" + surl + "diary.html"
-        f.write("- [" + tmp + " " + "title" + "](" + seturl + ")\n")
+        f.write("- [" + tmp + " " + getPostTitle(tmp) + "](" + seturl + ")\n")
 
     f.write("### つくったもの")
     f.write("  \n")
