@@ -12,7 +12,7 @@ from datetime import datetime,timedelta,date
 now = datetime.now()
 strDate = now.isoformat()
 datepath = now.strftime("%Y/%m")
-filename = strDate + "-diary"
+filename = now.strftime("%Y-%m-%d") + "-diary"
 #mainPath = "/Users/yamachaaan/blog.yamachaaan.net/data/"
 mainPath = "/users/yamachaaan/mmf/"
 dayList = [0 for Cnt in range(6)]
@@ -27,17 +27,17 @@ def makeFile():
     os.chdir(mainPath + datepath)
 
 def setweekDay():
-    for dayCnt in range(1,7):
+    for dayCnt in range(7):
         d = now-timedelta(dayCnt)
         dayList.insert(dayCnt,d.strftime("%Y-%m-%d"))
-        # print(dayList[dayCnt])
+        #print(dayList[dayCnt])
 
 def createContents():
     f = open(filename + '.md','a')
     f.write("---\n")
     f.write("layout: post\n")
     f.write("pubdata: " + strDate + "-23:59:59+09:00\n")
-    f.write("title: \n")
+    f.write("title: " + str(now.year) + "-W" + str(weekNo[1]) + " ふりかえり" +"\n")
     f.write("tags: ['review']\n")
     f.write("pagetype: posts\n")
     f.write("---\n")
@@ -47,8 +47,12 @@ def createContents():
     f.write("  \n")
     f.write("### 記事")
     f.write("  \n")
-    for dayCnt in dayList:
-        f.write("- [" + str(dayCnt) + " " + "title" + "]" + "\n")
+    for Cnt in range(7):
+        tmp = str((now - timedelta(Cnt)).strftime("%Y-%m-%d"))
+        urlList = tmp.split("-")
+        surl = "/" + urlList[0] + "/" + urlList[1] + "/" + urlList[2] + "/"
+        seturl = "http://blog.yamachaaan.net" + surl + "diary.html"
+        f.write("- [" + tmp + " " + "title" + "](" + seturl + ")\n")
 
     f.write("### つくったもの")
     f.write("  \n")
