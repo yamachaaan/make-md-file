@@ -9,6 +9,7 @@ Modified: 2018-01-18
 import os
 from datetime import datetime,timedelta,date
 import linecache
+import re
 
 now = datetime.now()
 strDate = now.isoformat()
@@ -35,8 +36,8 @@ def setweekDay():
 def getPostTitle(tmp):
     pathList = tmp.split("-")
     targetFilePath = mainPath + pathList[0] + "/" + pathList[1] + "/" + tmp + "-diary.md"
-    PostTitle = linecache.getline(targetFilePath, int(4))
-    return PostTitle
+    PostTitle = linecache.getline(targetFilePath, int(4)).replace('\n','')
+    return re.sub('[title: ]','',PostTitle)
 
 def createContents():
     f = open(filename + '.md','a')
@@ -53,7 +54,7 @@ def createContents():
     f.write("  \n")
     f.write("### 記事")
     f.write("  \n")
-    for Cnt in range(7):
+    for Cnt in range(1,8):
         tmp = str((now - timedelta(Cnt)).strftime("%Y-%m-%d"))
         urlList = tmp.split("-")
         surl = "/" + urlList[0] + "/" + urlList[1] + "/" + urlList[2] + "/"
