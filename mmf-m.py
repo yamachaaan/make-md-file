@@ -11,8 +11,10 @@ from datetime import datetime,timedelta,date
 
 mainPath = "/Users/yamachaaan/blog.yamachaaan.net/data/"
 now = datetime.now().strftime("%Y-%m-%d")
+MonthContent = []
 
-def createContens():
+def createContents(ymdPath):
+    MonthContent.append(ymdPath[0] + "-" + ymdPath[1] + " のふりかえり。  \n")
     return "hoge"
 
 def getDate(now):
@@ -41,11 +43,12 @@ def makeFile(fileFullPath,title,now):
     f.write("tags: ['diary']\n")
     f.write("pagetype: posts\n")
     f.write("---\n")
-    f.write(createContens())
+    f.write(createContens(now))
     f.close()
 
 if __name__ == '__main__':
     ymdPath = getDate(now)
+    createContents(ymdPath)
     fileName = createfileName(now)
     fileFullPath = createFilePath(ymdPath,fileName)
     title = setTitle(ymdPath)
