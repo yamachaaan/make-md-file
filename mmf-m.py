@@ -13,9 +13,21 @@ mainPath = "/Users/yamachaaan/blog.yamachaaan.net/data/"
 now = datetime.now().strftime("%Y-%m-%d")
 MonthContent = []
 
-def createContents(ymdPath):
+def createContents(ymdPath,MonthContent):
     MonthContent.append(ymdPath[0] + "-" + ymdPath[1] + " のふりかえり。  \n")
-    return "hoge"
+    MonthContent.append("### " + ymdPath[0] + "-" + ymdPath[1] + " の目標\n")
+    MonthContent.append("\n")
+    MonthContent.append("### 週のふりかえり\n")
+    MonthContent.append("\n")
+    MonthContent.append("### つくったもの\n")
+    MonthContent.append("\n")
+    MonthContent.append("### よんだもの\n")
+    MonthContent.append("\n")
+    MonthContent.append("### みたもの\n")
+    MonthContent.append("\n")
+    MonthContent.append("### " + ymdPath[0] + "-" + ymdPath[1] + " の目標\n")
+    MonthContent.append("\n")
+    return MonthContent
 
 def getDate(now):
     SplitYmd = now.split("-")
@@ -33,8 +45,7 @@ def setTitle(ymdPath):
     title = ymdPath[0] + "-" + ymdPath[1] + " ふりかえり"
     return title
 
-def makeFile(fileFullPath,title,now):
-    print(fileFullPath)
+def makeFile(fileFullPath,title,now,MonthContent):
     f = open(fileFullPath,'w')
     f.write("---\n")
     f.write("layout: post\n")
@@ -43,13 +54,14 @@ def makeFile(fileFullPath,title,now):
     f.write("tags: ['diary']\n")
     f.write("pagetype: posts\n")
     f.write("---\n")
-    f.write(createContens(now))
+    for i in MonthContent:
+        f.write(MonthContent[i])
     f.close()
 
 if __name__ == '__main__':
     ymdPath = getDate(now)
-    createContents(ymdPath)
+    createContents(ymdPath,MonthContent)
     fileName = createfileName(now)
     fileFullPath = createFilePath(ymdPath,fileName)
     title = setTitle(ymdPath)
-    makeFile(fileFullPath,title,now)
+    makeFile(fileFullPath,title,now,MonthContent)
