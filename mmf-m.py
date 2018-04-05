@@ -8,12 +8,13 @@ Modified: 2018-02-07
 
 import os
 from datetime import datetime,timedelta,date
+from dateutil.relativedelta import relativedelta
 
 mainPath = "/Users/yamachaaan/blog.yamachaaan.net/data/"
 now = datetime.now().strftime("%Y-%m-%d")
 MonthContent = []
 
-def createContents(ymdPath,MonthContent):
+def createContents(ymdPath):
     MonthContent.append(ymdPath[0] + "-" + ymdPath[1] + " のふりかえり。  \n")
     MonthContent.append("### " + ymdPath[0] + "-" + ymdPath[1] + " の目標\n")
     MonthContent.append("\n")
@@ -25,7 +26,11 @@ def createContents(ymdPath,MonthContent):
     MonthContent.append("\n")
     MonthContent.append("### みたもの\n")
     MonthContent.append("\n")
-    MonthContent.append("### " + ymdPath[0] + "-" + ymdPath[1] + " の目標\n")
+    dt = datetime.now() + relativedelta(months=1)
+    nextYear = dt.year
+    nextMonth = dt.month
+    nextMonth = '{0:02d}'.format(nextMonth)
+    MonthContent.append("### " + str(nextYear) + "-" + str(nextMonth) + " の目標\n")
     MonthContent.append("\n")
     return MonthContent
 
@@ -55,12 +60,12 @@ def makeFile(fileFullPath,title,now,MonthContent):
     f.write("pagetype: posts\n")
     f.write("---\n")
     for i in MonthContent:
-        f.write(MonthContent[i])
+        f.write(i)
     f.close()
 
 if __name__ == '__main__':
     ymdPath = getDate(now)
-    createContents(ymdPath,MonthContent)
+    createContents(ymdPath)
     fileName = createfileName(now)
     fileFullPath = createFilePath(ymdPath,fileName)
     title = setTitle(ymdPath)
