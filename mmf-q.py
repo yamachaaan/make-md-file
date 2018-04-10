@@ -19,7 +19,7 @@ def setQuarter(ymdPath):
     result = 1
     if target == 3:
         result = 1
-    elif target == 4:
+    elif target == 6:
         result = 2
     elif target ==9:
         result = 3
@@ -27,15 +27,28 @@ def setQuarter(ymdPath):
         result = 4
     return result
 
+def setNextQuarter(target):
+    result = 0
+    if target == 1:
+        result = 2
+    elif target == 2:
+        result = 3
+    elif target == 3:
+        result = 4
+    else:
+        result = 1
+    return result
+
 def createContents(ymdPath):
-    MonthContent.append(ymdPath[0] + "-Q" + str(setQuarter(ymdPath[1])) + " のふりかえり。  \n")
-    MonthContent.append("### " + ymdPath[0] + "-Q" + str(setQuarter(ymdPath[1])) + " の目標\n")
+    quarterNo = setQuarter(ymdPath[1])
+    MonthContent.append(ymdPath[0] + "-Q" + str(quarterNo) + " のふりかえり。  \n")
+    MonthContent.append("### " + ymdPath[0] + "-Q" + str(quarterNo) + " の目標\n")
     MonthContent.append("\n")
     dt = datetime.now() + relativedelta(months=1)
     nextYear = dt.year
-    nextMonth = dt.month
-    nextMonth = '{0:02d}'.format(nextMonth)
-    MonthContent.append("### " + str(nextYear) + "-Q" + str(setQuarter(ymdPath[1]) + 1) + " の目標\n")
+    if quarterNo == 4:
+        nextYear = nextYear + 1
+    MonthContent.append("### " + str(nextYear) + "-Q" + str(setNextQuarter(quarterNo)) + " の目標\n")
     MonthContent.append("\n")
     return MonthContent
 
