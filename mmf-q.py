@@ -44,11 +44,31 @@ def createContents(ymdPath):
     MonthContent.append(ymdPath[0] + "-Q" + str(quarterNo) + " のふりかえり。  \n")
     MonthContent.append("### " + ymdPath[0] + "-Q" + str(quarterNo) + " の目標\n")
     MonthContent.append("\n")
+    MonthContent.append("#### " + "プライベート\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "資格&免許\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "身体\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "お金\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "学習\n")
+    MonthContent.append("\n")
     dt = datetime.now() + relativedelta(months=1)
     nextYear = dt.year
     if quarterNo == 4:
         nextYear = nextYear + 1
     MonthContent.append("### " + str(nextYear) + "-Q" + str(setNextQuarter(quarterNo)) + " の目標\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "プライベート\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "資格&免許\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "身体\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "お金\n")
+    MonthContent.append("\n")
+    MonthContent.append("#### " + "学習\n")
     MonthContent.append("\n")
     return MonthContent
 
