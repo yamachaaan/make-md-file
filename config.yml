@@ -1,0 +1,36 @@
+Main:
+    rootPath: '~/blog.yamachaaan.net/'
+    header: |
+        ---
+        layout: post
+        pubdate: 
+        title: 
+        tags: ['diary']
+        pagetype: posts
+        ---
+Content:
+    Common: |
+        のふりかえり
+        ### 目標
+        ### つくったもの
+        ### よんだもの
+        ### みたもの
+    Weekly: |
+        ### 記事
+        ### 年-W
+    Monthly: |
+        のふりかえり。
+        ### 週のふりかえり
+    Quarter: |
+        #### プライベート
+        #### 資格&免許
+        #### 身体
+        #### お金
+        #### 学習
+    Year: |
+        #### プライベート
+        #### 資格&免許
+        #### 身体
+        #### お金
+        #### 学習
+
