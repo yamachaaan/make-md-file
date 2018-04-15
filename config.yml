@@ -1,36 +1,8 @@
 Main:
-    rootPath: '~/blog.yamachaaan.net/'
-    header: |
-        ---
-        layout: post
-        pubdate: 
-        title: 
-        tags: ['diary']
-        pagetype: posts
-        ---
+    rootPath: '/Users/yamachaaan/blog.yamachaaan.net/'
+    header: ["---\n" ,"layout: post\n" ,"pubdate: \n","title: \n","tags: ['diary']\n" ,"pagetype: posts\n" ,"---\n"]
 Content:
-    Common: |
-        のふりかえり
-        ### 目標
-        ### つくったもの
-        ### よんだもの
-        ### みたもの
-    Weekly: |
-        ### 記事
-        ### 年-W
-    Monthly: |
-        のふりかえり。
-        ### 週のふりかえり
-    Quarter: |
-        #### プライベート
-        #### 資格&免許
-        #### 身体
-        #### お金
-        #### 学習
-    Year: |
-        #### プライベート
-        #### 資格&免許
-        #### 身体
-        #### お金
-        #### 学習
-
+    Weekly: ["", "### 目標\n", "### 記事\n", "### つくったもの\n", "### よんだもの\n", "### みたもの\n"]
+    Monthly: ["", "### 目標\n", "### 週のふりかえり\n", "### つくったもの\n", "### よんだもの\n", "### みたもの\n"]
+    Quarter: ["", "### 目標\n", "#### プライベート\n", "#### 資格&免許\n", "#### 身体\n", "#### お金\n", "#### 学習\n"]
+    Year:  ["", "### 目標\n", "#### プライベート\n", "#### 資格&免許\n", "#### 身体\n", "#### お金\n", "#### 学習\n"]

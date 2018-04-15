@@ -18,8 +18,12 @@ from dateutil.relativedelta import relativedelta
 initial variable
 """
 rootPath=""
+FileFullPath=""
 header=""
-Content=[]
+weekContent=[]
+monthContent=[]
+quoteContent=[]
+yearContent=[]
 mmfType=[]
 
 # load yaml
@@ -30,13 +34,15 @@ def define():
         rootPath = config['Main']['rootPath']
         global header
         header = config['Main']['header']
-        global Content
-        Content.append(config['Content']['Weekly'])
-        Content.append(config['Content']['Monthly'])
-        Content.append(config['Content']['Quarter'])
-        Content.append(config['Content']['Year'])
+        global weekContent
+        global monthContent
+        global quoteContent
+        global yearContent
+        weekContent = (config['Content']['Weekly'])
+        monthContent = (config['Content']['Monthly'])
+        quoteContent = (config['Content']['Quarter'])
+        yearContent = (config['Content']['Year'])
 
-# get mmfType
 def setmmfType():
     mmfType=[]
     Date = datetime.today()
@@ -46,18 +52,12 @@ def setmmfType():
     if last_day.month is (1 or 3 or 5 or 7 or 8 or 10 or 12):
         if Date.day is 31:
             mmfType.insert(2,"month")
-        else:
-            mmfType.insert(0,"day")
     elif last_day.month is (4 or 6 or 9 or 11):
         if Date.day is 30:
             mmfType.insert(2,"month")
-        else:
-            mmfType.insert(0,"day")
     else: # 2月
         if Date.day is (28 or 29):
             mmfType.insert(2,"month")
-        else:
-            mmfType.insert(0,"day")
     if last_day.month is (3 or 12):
         if Date.day is 31:
             mmfType.insert(3,"quote")
@@ -69,10 +69,46 @@ def setmmfType():
             mmfType.insert(4,"year")
     return mmfType
 
+def setPostDate():
+    global header
+    Date = datetime.today().strftime("%Y-%m-%d")
+    header[2] = "pubdate: " + Date + "-23:59:59+09:00\n"
+
+def setReview():
+    global weekContent
+    global monthContent
+    global quoteContent
+    global yearContent
+    global mmfType
+    now = datetime.today()
+    if ("week" in mmfType) is True:
+        weekNo = date(now.year,now.month,now.day).isocalendar()
+        weekContent[0] = (str(now.year) + "-W" + str(weekNo[1]) + " をふりかえる。  \n")
+        weekContent.append("### " + str(now.year) + "-W" + str(weekNo[1] + 1) + " の目標\n")
+    if ("month" in mmfType) is True:
+        MonthContent[0] = (str(now.year) + "-" + str(now.month) + " をふりかえる。  \n")
+        MonthContent.append("### " + str(now.year) + "-" + str(now.month + 1) + " の目標\n")
+    if ("quote" in mmfType) is True:
+        if now.month % 3 == 0:
+            quoteContent[0] = (str(now.year) + "-Q" + str(month / 3) + " をふりかえる。  \n")
+            if month/3 == 4:
+                quoteContent.append("### " + str(now.year + 1) + "-Q" + str(1) + " の目標\n")
+            else:
+                quoteContent.append("### " + str(now.year) + "-Q" + str(month / 3) + " の目標\n")
+    if ("year" in mmfType) is True:
+        yearContent[0] = (str(now.year) + " をふりかえる。  \n")
+        yearContent.append("### " + str(now.year + 1) + " の目標\n")
 # createFile
 def createFile():
     global rootPath
+    global FileFullPath
     global header
+    global weekContent
+    global monthContent
+    global quoteContent
+    global yearContent
+    global reviewFirst
+    global reviewNext
     now = datetime.today().strftime("%Y-%m-%d")
     date = now.split("-")
     FilePath = "data/" + date[0] + "/" + date[1] + "/"
@@ -82,21 +118,28 @@ def createFile():
     else:
         os.makedirs(rootPath + FilePath)
     os.chdir(rootPath+ FilePath)
-    tmpPath = rootPath + FilePath + FileName
-    f = open(rootPath + FilePath + FileName,'w')
-    f.write(header)
+    FileFullPath = rootPath + FilePath + FileName
+    f = open(FileFullPath,'w')
+    for headerCont in header:
+        f.write(headerCont)
     if ("week" in mmfType) is True:
-        f.write(Content[0])
+        for weekCont in weekContent:
+            f.write(weekCont)
     if ("month" in mmfType) is True:
-        f.write(Content[1])
+        for monthCont in monthContent:
+            f.write(monthCont)
     if ("quote" in mmfType) is True:
-        f.write(Content[2])
+        for quoteCont in quoteContent:
+            f.write(quoteCont)
     if ("year" in mmfType) is True:
-        f.write(Content[3])
+        for yearCont in yearContent:
+            f.write(yearCont)
     f.close()
 
 # Main
 if __name__ == '__main__':
     define()
     mmfType = setmmfType()
+    setPostDate()
+    setReview()
     createFile()
