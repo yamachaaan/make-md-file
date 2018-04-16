@@ -11,6 +11,8 @@ import Library
 """
 import yaml
 import os
+import linecache
+import re
 from datetime import datetime,timedelta,date
 from dateutil.relativedelta import relativedelta
 
@@ -98,6 +100,13 @@ def setReview():
     if ("year" in mmfType) is True:
         yearContent[0] = (str(now.year) + " をふりかえる。  \n")
         yearContent.append("### " + str(now.year + 1) + " の目標\n")
+
+def getPostTitle(tmp):
+    global rootPath
+    pathList = tmp.split("-")
+    targetFilePath = rootPath + pathList[0] + "/" + pathList[1] + "/" + tmp + "-diary.md"
+    PostTitle = linecache.getline(targetFilePath, int(4)).replace('\n','')
+    return re.sub('[title: ]','',PostTitle)
 # createFile
 def createFile():
     global rootPath
@@ -122,8 +131,18 @@ def createFile():
     f = open(FileFullPath,'w')
     for headerCont in header:
         f.write(headerCont)
+    #if ("week" in mmfType) is True:
     if ("week" in mmfType) is True:
+        cnt = 0
         for weekCont in weekContent:
+            cnt += 1
+            if cnt == 3:
+                for Cnt in range(1,8):
+                    tmp = str((datetime.now() - timedelta(Cnt)).strftime("%Y-%m-%d"))
+                    urlList = tmp.split("-")
+                    surl = "/" + urlList[0] + "/" + urlList[1] + "/" + urlList[2] + "/"
+                    seturl = "http://blog.yamachaaan.net" + surl + "diary.html"
+                    f.write("- [" + tmp + " " + getPostTitle(tmp) + "](" + seturl + ")\n")
             f.write(weekCont)
     if ("month" in mmfType) is True:
         for monthCont in monthContent:
