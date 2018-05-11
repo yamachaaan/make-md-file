@@ -30,7 +30,7 @@ mmfType=[]
 
 # load yaml
 def define():
-    with open('config.yml','r') as yml:
+    with open('./mmf/config.yml','r') as yml:
         config = yaml.load(yml)
         global rootPath
         rootPath = config['Main']['rootPath']
@@ -107,6 +107,7 @@ def getPostTitle(tmp):
     targetFilePath = rootPath + pathList[0] + "/" + pathList[1] + "/" + tmp + "-diary.md"
     PostTitle = linecache.getline(targetFilePath, int(4)).replace('\n','')
     return re.sub('[title: ]','',PostTitle)
+
 # createFile
 def createFile():
     global rootPath
@@ -134,51 +135,55 @@ def createFile():
     #if ("week" in mmfType) is True:
     if ("week" in mmfType) is True:
         weekCnt = 0
+        postTitle=[]
+        for Cnt in range(1,8):
+            tmp = str((datetime.now() - timedelta(Cnt)).strftime("%Y-%m-%d"))
+            urlList = tmp.split("-")
+            surl = "/" + urlList[0] + "/" + urlList[1] + "/" + urlList[2] + "/"
+            seturl = "http://blog.yamachaaan.net" + surl + "diary.html"
+            postTitle = getPostTitle(tmp)
+            print(postTitle)
+
+            #f.write("- [" + tmp + " " + getPostTitle(tmp) + "](" + seturl + ")\n")
         for weekCont in weekContent:
             weekCnt += 1
-            if weekCnt == 2:
+            #if weekCnt == 2:
                 # 週の目標を取得
-            if weekCnt == 3:
-                for Cnt in range(1,8):
-                    tmp = str((datetime.now() - timedelta(Cnt)).strftime("%Y-%m-%d"))
-                    urlList = tmp.split("-")
-                    surl = "/" + urlList[0] + "/" + urlList[1] + "/" + urlList[2] + "/"
-                    seturl = "http://blog.yamachaaan.net" + surl + "diary.html"
-                    f.write("- [" + tmp + " " + getPostTitle(tmp) + "](" + seturl + ")\n")
-            if weekCnt == 4:
-                # つくったものを取得
-            if weekCnt == 5:
-                # よんだものを取得
-            if weekCnt == 6:
+            #if weekCnt == 3:
+            #if weekCnt == 4:
+            #    # つくったものを取得
+            #if weekCnt == 5:
+            #    # よんだものを取得
+            #if weekCnt == 6:
                 # みたものを取得
             f.write(weekCont)
     if ("month" in mmfType) is True:
         monthCnt = 0
         for monthCont in monthContent:
             monthCnt += 1
-            if monthCnt == 1:
+            #if monthCnt == 1:
                 # 月の目標を取得
-            if monthCnt == 2:
-                # 週のふりかえり記事を取得
-            if monthCnt == 3:
-                # つくったものを取得
-            if monthCnt == 4:
-                # よんだものを取得
-            if monthCnt == 5:
+            #if monthCnt == 2:
+            #    # 週のふりかえり記事を取得
+            #if monthCnt == 3:
+            #    # つくったものを取得
+            #if monthCnt == 4:
+            #    # よんだものを取得
+            #if monthCnt == 5:
                 # みたものを取得
             f.write(monthCont)
     if ("quote" in mmfType) is True:
         quoteCnt = 0
         for quoteCont in quoteContent:
             quoteCnt += 1
-            if quoteCnt == 1:
+            #if quoteCnt == 1:
                 # 四半期の目標を取得
             f.write(quoteCont)
     if ("year" in mmfType) is True:
         yearCnt = 0
         for yearCont in yearContent:
             yearCnt += 1
-            if yearCnt == 1:
+            #if yearCnt == 1:
                 # 年の目標を取得
             f.write(yearCont)
     f.close()
